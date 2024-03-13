@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import socketserver
 import time
 import sqlite3
