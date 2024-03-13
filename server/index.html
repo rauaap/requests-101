@@ -1,0 +1,45 @@
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<head>
+<style>
+    body {
+        font-family: Monospace, Arial;
+        background-color: #333;
+        color: #aaa;
+    }
+</style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Very cool</h1>
+        <input type="text" id="coolInput"></input>
+        <button id="coolButton">Click here</button>
+        <button id="allButton">Show all requests</button>
+        <div id="responseContainer"></div>
+        <div id="allContainer"></div>
+    </div>
+    <script>
+        const coolButton = document.getElementById('coolButton');
+        const coolInput = document.getElementById('coolInput');
+
+        const allButton = document.getElementById('allButton');
+        const allContainer = document.getElementById('allContainer');
+
+        const responseContainer = document.getElementById('responseContainer');
+
+        coolButton.addEventListener('click', async () => {
+            const response = await (await fetch('/api/insert', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify({message: coolInput.value})
+            })).text();
+            responseContainer.innerText = response;
+        });
+
+        allButton.addEventListener('click', async () => {
+            const response = await (await fetch('/api/all')).text();
+            allContainer.innerText = response;
+        });
+    </script>
+</body>
